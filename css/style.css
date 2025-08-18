@@ -97,7 +97,7 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .hero-text h1 { font-size: 3.5rem; color: var(--dark-text); }
 .hero-text .highlight-red { color: var(--primary-red); }
 .hero-text .subtitle { font-size: 1.1rem; color: #555; margin-top: 20px; margin-bottom: 30px; max-width: 500px; }
-.btn { padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.2s ease; }
+.btn { padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.2s ease; display: inline-block; }
 .btn-primary { background-color: var(--primary-red); color: var(--white); box-shadow: 0 4px 15px rgba(232, 93, 95, 0.4); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(232, 93, 95, 0.5); }
 .hero-images { position: relative; height: 450px; }
@@ -333,7 +333,6 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
     
-    /* ===== KODE PERBAIKAN UNTUK MOBILE VIEW FINAL CTA ===== */
     .final-cta-section h2 {
         font-size: 2.2rem;
     }
@@ -349,10 +348,9 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     .final-cta-section p {
         margin-top: 0;
     }
-    /* PENAMBAHAN KODE BARU UNTUK TOMBOL */
     .final-cta-section .btn {
-        padding: 14px 20px; /* Kurangi padding horizontal */
-        font-size: 0.9rem;  /* Perkecil sedikit font di tombol */
+        padding: 14px 20px;
+        font-size: 0.9rem;
     }
 
     .testimonial-card { width: 280px; }
@@ -363,5 +361,16 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     @keyframes scroll-mobile {
         0% { transform: translateX(0); }
         100% { transform: translateX(calc(-280px * 5 - 20px * 5)); }
+    }
+    
+    /* ===== KODE PERBAIKAN UNTUK BLOG CTA ===== */
+    .cta-banner {
+        padding: 30px 20px; /* Kurangi padding container */
+    }
+    .cta-banner .btn {
+        padding: 16px 20px;     /* Sesuaikan padding tombol */
+        height: auto;           /* Biarkan tinggi tombol menyesuaikan konten */
+        white-space: normal;    /* Izinkan teks untuk turun ke baris baru */
+        line-height: 1.4;       /* Atur jarak antar baris jika teksnya panjang */
     }
 }
