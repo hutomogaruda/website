@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(el);
         });
     } else {
-        // Fallback for older browsers that don't support IntersectionObserver
         revealElements.forEach(el => el.classList.add('visible'));
     }
 
@@ -57,11 +56,104 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- FUNGSI 4: TESTIMONIAL SLIDER INTERAKTIF ---
-    // Logika slider JavaScript telah dihapus dan digantikan oleh animasi CSS murni
-    // untuk fungsionalitas auto-slide yang lebih lancar dan sesuai permintaan.
-    // Pengguna dapat menghentikan slide dengan hover (desktop) atau touch-hold (mobile).
+    // --- FUNGSI 4: SLIDER TESTIMONI INTERAKTIF (PERBAIKAN FINAL) ---
+    const testimonialSlider = document.querySelector('.testimonial-slider-viewport');
+    if (testimonialSlider) {
+        const track = testimonialSlider.querySelector('.testimonial-track');
+        const slides = Array.from(track.children);
+        const dotsNav = document.querySelector('.testimonial-navigation');
+        let slideWidth = slides[0].getBoundingClientRect().width;
+        let currentIndex = 0;
 
+        // Fungsi utama untuk pindah slide
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length) return;
+            
+            const amountToMove = targetIndex * slideWidth;
+            track.style.transition = 'transform 0.5s ease-out';
+            track.style.transform = `translateX(-${amountToMove}px)`;
+
+            if (dots) {
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[targetIndex].classList.add('active');
+            }
+            
+            currentIndex = targetIndex;
+        };
+        
+        // Buat titik navigasi secara dinamis
+        dotsNav.innerHTML = '';
+        slides.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('nav-dot');
+            dotsNav.appendChild(dot);
+            dot.addEventListener('click', () => moveToSlide(index));
+        });
+
+        const dots = Array.from(dotsNav.children);
+        if (dots.length > 0) {
+            dots[0].classList.add('active');
+        }
+
+        // Logika Geser/Swipe
+        let isDragging = false,
+            startPos = 0,
+            currentTranslate = 0,
+            prevTranslate = 0;
+
+        const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+
+        const dragStart = (event) => {
+            isDragging = true;
+            startPos = getPositionX(event);
+            const transformMatrix = window.getComputedStyle(track).getPropertyValue('transform');
+            prevTranslate = transformMatrix !== 'none' ? parseFloat(transformMatrix.split(',')[4]) : 0;
+            track.style.transition = 'none';
+        };
+
+        const dragging = (event) => {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                const move = currentPosition - startPos;
+                currentTranslate = prevTranslate + move;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+        };
+
+        const dragEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -75 && currentIndex < slides.length - 1) {
+                currentIndex++;
+            }
+            if (movedBy > 75 && currentIndex > 0) {
+                currentIndex--;
+            }
+
+            moveToSlide(currentIndex);
+        };
+        
+        const setupSlider = () => {
+            slideWidth = slides[0].getBoundingClientRect().width;
+            moveToSlide(currentIndex);
+        };
+
+        // Event Listeners
+        testimonialSlider.addEventListener('mousedown', dragStart);
+        testimonialSlider.addEventListener('mouseup', dragEnd);
+        testimonialSlider.addEventListener('mouseleave', dragEnd);
+        testimonialSlider.addEventListener('mousemove', dragging);
+
+        testimonialSlider.addEventListener('touchstart', dragStart, { passive: true });
+        testimonialSlider.addEventListener('touchend', dragEnd);
+        testimonialSlider.addEventListener('touchmove', dragging, { passive: true });
+        
+        window.addEventListener('resize', setupSlider);
+        
+        setupSlider();
+    }
 });
 
 // --- CSS TAMBAHAN UNTUK TEKS BERPUTAR ---

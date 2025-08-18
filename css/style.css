@@ -17,7 +17,7 @@ body {
     background-color: var(--white);
     scroll-behavior: smooth;
     position: relative; 
-    overflow-x: hidden; /* Mencegah scroll horizontal karena shape */
+    overflow-x: hidden;
 }
 
 .container {
@@ -85,6 +85,12 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .nav-links { list-style: none; display: flex; gap: 40px; margin: 0; font-weight: 500; }
 .nav-links a { text-decoration: none; color: var(--dark-text); transition: color 0.2s; }
 .nav-links a:hover { color: var(--primary-red); }
+
+@media (min-width: 993px) {
+    .nav-links {
+        margin-right: 180px;
+    }
+}
 
 /* ================== HERO SECTION ================== */
 .hero-section { 
@@ -184,16 +190,36 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .step-3 { top: 650px; left: 0; }
 .step-4 { top: 950px; right: 0; flex-direction: row-reverse; text-align: right; }
 
-/* ================== TESTIMONIALS SECTION ================== */
+/* ================== TESTIMONIALS SECTION (DENGAN DEKORASI) ================== */
 .testimonials-section {
-    background-color: var(--white);
-    overflow: hidden;
-    padding-top: 100px;
-    padding-bottom: 60px;
+    background-color: var(--light-bg);
+    overflow: hidden; /* Penting: agar lingkaran tidak keluar dari section */
 }
+/* KODE BARU: Lingkaran dekoratif */
+.testimonials-section::before,
+.testimonials-section::after {
+    content: '';
+    position: absolute;
+    background-color: var(--primary-red);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.testimonials-section::before {
+    left: -300px; /* Setengah dari lebar lingkaran */
+}
+.testimonials-section::after {
+    right: -300px; /* Setengah dari lebar lingkaran */
+}
+
 .testimonial-header {
     text-align: center;
     margin-bottom: 40px;
+    position: relative;
+    z-index: 2; /* Di atas lingkaran */
 }
 .testimonial-header .stars {
     font-size: 2rem;
@@ -202,37 +228,55 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .testimonial-header h2 {
     margin-bottom: 0;
 }
-.testimonial-slider {
-    width: 100%;
+.testimonial-slider-viewport {
+    position: relative;
+    z-index: 2; /* Di atas lingkaran */
+    overflow: hidden;
+    max-width: 900px; 
+    margin: 0 auto;
+    cursor: grab;
+}
+.testimonial-slider-viewport:active {
+    cursor: grabbing;
 }
 .testimonial-track {
-    display: flex; 
-    flex-wrap: nowrap;
-    gap: 30px;
-    width: calc(400px * 10 + 30px * 10); 
-    animation: scroll 40s linear infinite;
-}
-.testimonial-track:hover {
-    animation-play-state: paused;
-}
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-400px * 5 - 30px * 5)); }
+    display: flex;
 }
 .testimonial-card {
-    flex-shrink: 0;
-    width: 400px; 
+    flex: 0 0 100%;
+    padding: 0;
+    box-sizing: border-box;
 }
 .testimonial-card img {
     width: 100%;
+    height: auto;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    user-select: none;
+    pointer-events: none;
 }
-.slider-btn { display: none; }
-
+.testimonial-navigation {
+    position: relative;
+    z-index: 2; /* Di atas lingkaran */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.nav-dot.active {
+    background-color: var(--primary-red);
+}
 
 /* ================== BLOG SECTION ================== */
-.blog-section { background-color: var(--light-bg); }
+.blog-section { background-color: var(--white); }
 .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .blog-grid.single-post {
     grid-template-columns: 1fr;
@@ -245,10 +289,10 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .blog-content { padding: 30px; }
 .blog-content h3 { font-size: 1.5rem; margin-bottom: 15px; }
 .blog-content p { color: #555; margin-bottom: 20px; }
-.cta-link { text-decoration: none; color: var(--primary-red); font-weight: 700; }
+.cta-link { text-decoration: none; color: var(--primary-red); font-weight: 700; display: inline-block; margin-top: 10px;}
 
 /* ================== FAQ SECTION ================== */
-.faq-section { background-color: var(--white); }
+.faq-section { background-color: var(--light-bg); }
 .faq-accordion { max-width: 800px; margin: 0 auto 40px auto; }
 .faq-item { background-color: var(--white); border: 1px solid #eee; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -261,8 +305,8 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .faq-footer { text-align: center; }
 .faq-footer span { margin-left: 10px; color: #777; }
 
-/* ================== ABOUT SECTION ================== */
-.about-section { background-color: var(--light-bg); }
+/* ================== ABOUT SECTION (MAIN PAGE) ================== */
+.about-section { background-color: var(--white); }
 .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-text h2 { text-align: left; margin-bottom: 20px; }
 .about-text p { color: #555; margin-bottom: 15px; line-height: 1.7; }
@@ -301,6 +345,8 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
 
 /* ================== PAGE-SPECIFIC STYLES ================== */
 .page-section { padding: 60px 0; }
+.light-bg { background-color: var(--light-bg); }
+.text-center { text-align: center; }
 .blog-post .container { max-width: 800px; }
 .blog-hero-image { width: 100%; height: auto; border-radius: 12px; margin-bottom: 30px; }
 .blog-meta { color: #777; margin-bottom: 30px; }
@@ -308,6 +354,28 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
 .blog-post h3 { font-size: 1.8rem; margin-top: 40px; margin-bottom: 15px; }
 .blog-post p { line-height: 1.8; margin-bottom: 20px; }
 .cta-banner { background-color: var(--light-bg); padding: 40px; border-radius: 12px; text-align: center; margin-top: 50px; }
+
+/* ================== STYLE UNTUK HALAMAN ABOUT US ================== */
+.about-page-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; text-align: left; }
+.about-text-block h3 { font-size: 1.8rem; color: var(--primary-blue); margin-bottom: 20px; }
+.about-text-block ul { list-style-type: '✓ '; padding-left: 20px; }
+.about-text-block li { margin-bottom: 15px; line-height: 1.7; }
+.photo-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.photo-gallery img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+/* ================== STYLE UNTUK HALAMAN PAKET & HARGA ================== */
+.price-note { text-align: center; background-color: #fffbe6; border: 1px solid #ffe58f; padding: 15px; border-radius: 8px; max-width: 800px; margin: 0 auto 40px auto; color: #6d5d1b; }
+.packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.package-card { background-color: var(--white); border: 1px solid #eee; border-radius: 12px; padding: 30px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+.package-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.package-card.featured { border: 2px solid var(--primary-red); position: relative; overflow: hidden; }
+.recommended-badge { position: absolute; top: 15px; right: -45px; background-color: var(--primary-red); color: var(--white); padding: 5px 40px; font-size: 0.8rem; font-weight: 700; transform: rotate(45deg); }
+.package-card h3 { font-size: 1.6rem; color: var(--primary-blue); margin-top: 0; margin-bottom: 10px; }
+.package-card p { color: #555; font-size: 0.95rem; margin-bottom: 20px; }
+.package-card ul { list-style: '✓ '; padding-left: 20px; font-size: 0.9rem; }
+.package-card li { margin-bottom: 10px; }
+.whatsapp-cta { text-align: center; margin-top: 60px; background-color: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.whatsapp-cta h3 { font-size: 1.8rem; margin-top: 0; }
 
 /* ================== RESPONSIVE DESIGN ================== */
 @media (max-width: 992px) {
@@ -333,44 +401,19 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
     
-    .final-cta-section h2 {
-        font-size: 2.2rem;
-    }
-    .rotating-text-container {
-        font-size: 1.8rem;
-        height: auto;
-        min-height: 70px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .final-cta-section p {
-        margin-top: 0;
-    }
-    .final-cta-section .btn {
-        padding: 14px 20px;
-        font-size: 0.9rem;
-    }
-
-    .testimonial-card { width: 280px; }
-    .testimonial-track {
-        width: calc(280px * 10 + 20px * 9);
-        animation-name: scroll-mobile;
-    }
-    @keyframes scroll-mobile {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-280px * 5 - 20px * 5)); }
-    }
+    .final-cta-section h2 { font-size: 2.2rem; }
+    .rotating-text-container { font-size: 1.8rem; height: auto; min-height: 70px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+    .final-cta-section p { margin-top: 0; }
+    .final-cta-section .btn { padding: 14px 20px; font-size: 0.9rem; }
     
-    /* ===== KODE PERBAIKAN UNTUK BLOG CTA ===== */
-    .cta-banner {
-        padding: 30px 20px; /* Kurangi padding container */
-    }
-    .cta-banner .btn {
-        padding: 16px 20px;     /* Sesuaikan padding tombol */
-        height: auto;           /* Biarkan tinggi tombol menyesuaikan konten */
-        white-space: normal;    /* Izinkan teks untuk turun ke baris baru */
-        line-height: 1.4;       /* Atur jarak antar baris jika teksnya panjang */
-    }
+    .cta-banner { padding: 30px 20px; }
+    .cta-banner .btn { padding: 16px 20px; height: auto; white-space: normal; line-height: 1.4; }
+
+    .about-page-content { grid-template-columns: 1fr; }
+    .photo-gallery { grid-template-columns: 1fr; }
+    
+    .packages-grid { grid-template-columns: 1fr; }
+    .whatsapp-cta h3 { font-size: 1.5rem; }
+
+    .testimonial-slider-viewport { max-width: 100%; }
 }
