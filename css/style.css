@@ -333,23 +333,27 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
     
-    /* ===== KODE PERBAIKAN UNTUK MOBILE VIEW ===== */
+    /* ===== KODE PERBAIKAN UNTUK MOBILE VIEW FINAL CTA ===== */
     .final-cta-section h2 {
-        font-size: 2.2rem; /* Perkecil sedikit judul utama */
+        font-size: 2.2rem;
     }
     .rotating-text-container {
-        font-size: 1.8rem; /* Perkecil ukuran font teks berputar */
-        height: auto;      /* Hapus tinggi tetap agar bisa mengembang */
-        min-height: 70px;  /* Beri tinggi minimal agar layout tidak anjlok */
+        font-size: 1.8rem;
+        height: auto;
+        min-height: 70px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .final-cta-section p {
-        margin-top: 0; /* Hapus margin atas pada paragraf */
+        margin-top: 0;
     }
-    /* ===== AKHIR DARI KODE PERBAIKAN ===== */
+    /* PENAMBAHAN KODE BARU UNTUK TOMBOL */
+    .final-cta-section .btn {
+        padding: 14px 20px; /* Kurangi padding horizontal */
+        font-size: 0.9rem;  /* Perkecil sedikit font di tombol */
+    }
 
     .testimonial-card { width: 280px; }
     .testimonial-track {
