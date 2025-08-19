@@ -20,6 +20,10 @@ body {
     overflow-x: hidden;
 }
 
+main {
+    overflow-x: hidden; /* Mencegah elemen lain menyebabkan scroll horizontal */
+}
+
 /* KELAS BANTU UNTUK SCROLL LOCK SAAT MENU TERBUKA */
 .no-scroll {
     overflow: hidden;
@@ -98,7 +102,7 @@ header {
 header nav.container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
 .logo { display: flex; align-items: center; text-decoration: none; color: var(--dark-text); font-weight: 700; font-size: 1.2rem; }
 .logo img { height: 50px; margin-right: 12px; }
-.nav-links { list-style: none; display: flex; gap: 40px; margin: 0; padding: 0; font-weight: 500; }
+.nav-links { list-style: none; display: flex; align-items: center; gap: 40px; margin: 0; padding: 0; font-weight: 500; }
 .nav-links a { text-decoration: none; color: var(--dark-text); transition: color 0.2s; font-size: 1rem; }
 .nav-links a:hover { color: var(--primary-red); }
 
@@ -106,6 +110,11 @@ header nav.container { display: flex; justify-content: space-between; align-item
     .nav-links {
         margin-right: 180px;
     }
+}
+
+/* Sembunyikan tombol CTA di navigasi desktop */
+li.nav-cta {
+    display: none;
 }
 
 /* ================== GAYA BARU UNTUK NAVIGASI MOBILE (HAMBURGER) ================== */
@@ -119,7 +128,6 @@ header nav.container { display: flex; justify-content: space-between; align-item
     height: 2rem;
     z-index: 9999;
 }
-
 .mobile-nav-toggle::before,
 .mobile-nav-toggle::after {
     content: '';
@@ -131,15 +139,12 @@ header nav.container { display: flex; justify-content: space-between; align-item
     left: 0;
     transition: transform 350ms ease-in-out;
 }
-
 .mobile-nav-toggle::before {
     top: 25%;
 }
-
 .mobile-nav-toggle::after {
     bottom: 25%;
 }
-
 .mobile-nav-toggle[aria-expanded="true"]::before {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -462,11 +467,10 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         justify-content: center;
         align-items: center;
         padding: 2rem;
-        background: hsl(0 0% 100% / 0.95);
-        backdrop-filter: blur(1rem);
+        background: var(--white);
         transform: translateX(100%);
         transition: transform 350ms ease-out;
-        z-index: 1001;
+        z-index: 9000;
     }
     .nav-links[data-visible="true"] {
         transform: translateX(0%);
@@ -475,16 +479,28 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         font-size: 1.5rem;
     }
 
+    .nav-cta {
+        display: block;
+        margin-top: 2rem;
+    }
+    .nav-cta .btn {
+        font-size: 1.2rem;
+        padding: 12px 28px;
+    }
+
     .mobile-nav-toggle {
         display: block;
     }
-    .sticky-cta { 
+    .sticky-cta, li.nav-cta { 
         display: none; 
     }
-
+    .nav-links[data-visible="true"] > li.nav-cta {
+        display: block;
+    }
+    
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
-    
+
     .hero-section {
         padding-top: 40px;
         padding-bottom: 60px;
@@ -522,3 +538,174 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         font-size: 0.8rem;
     }
 }
+```
+
+---
+### 3. `script.js` (Lengkap & Final)
+
+```javascript
+/**
+ * File: D:/project/hutomo/js/script.js
+ * Deskripsi: Skrip ini mengelola semua interaktivitas di website Hutomo Driving School.
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // --- FUNGSI NAVIGASI MOBILE (HAMBURGER MENU) ---
+    const nav = document.querySelector("#nav-links");
+    const navToggle = document.querySelector(".mobile-nav-toggle");
+    const body = document.body;
+
+    if (navToggle) {
+        navToggle.addEventListener("click", () => {
+            const visibility = nav.getAttribute("data-visible");
+            if (visibility === "false" || visibility === null) {
+                nav.setAttribute("data-visible", true);
+                navToggle.setAttribute("aria-expanded", true);
+                body.classList.add("no-scroll"); // Kunci scroll
+            } else {
+                nav.setAttribute("data-visible", false);
+                navToggle.setAttribute("aria-expanded", false);
+                body.classList.remove("no-scroll"); // Buka kunci scroll
+            }
+        });
+    }
+
+    // --- FUNGSI 1: ANIMASI SAAT SCROLL ---
+    const revealElements = document.querySelectorAll('.reveal');
+    if (window.IntersectionObserver) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        revealElements.forEach(el => el.classList.add('visible'));
+    }
+
+    // --- FUNGSI 2: TEKS BERPUTAR DI FINAL CTA ---
+    const rotatingTexts = ["Ke kampus tanpa nebeng", "Jalan-jalan ke Puncak", "Antar keluarga dengan aman", "Pergi kerja tanpa ojek"];
+    const rotatingTextElement = document.getElementById('rotating-text');
+    let rotatingIndex = 0;
+    if (rotatingTextElement) {
+        setInterval(() => {
+            rotatingIndex = (rotatingIndex + 1) % rotatingTexts.length;
+            rotatingTextElement.classList.add('fade-out');
+            setTimeout(() => {
+                rotatingTextElement.textContent = rotatingTexts[rotatingIndex];
+                rotatingTextElement.classList.remove('fade-out');
+            }, 500);
+        }, 2500);
+    }
+
+    // --- FUNGSI 3: FAQ ACCORDION ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const currentlyActive = document.querySelector('.faq-item.active');
+            if (currentlyActive && currentlyActive !== item) {
+                currentlyActive.classList.remove('active');
+            }
+            item.classList.toggle('active');
+        });
+    });
+
+    // --- FUNGSI 4: SLIDER TESTIMONI INTERAKTIF ---
+    const testimonialSlider = document.querySelector('.testimonial-slider-viewport');
+    if (testimonialSlider) {
+        const track = testimonialSlider.querySelector('.testimonial-track');
+        const slides = Array.from(track.children);
+        const dotsNav = document.querySelector('.testimonial-navigation');
+        let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+        let currentIndex = 0;
+
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length) return;
+            
+            const amountToMove = targetIndex * slideWidth;
+            track.style.transition = 'transform 0.5s ease-out';
+            track.style.transform = `translateX(-${amountToMove}px)`;
+
+            const dots = dotsNav.children;
+            if (dots.length > 0) {
+                Array.from(dots).forEach(dot => dot.classList.remove('active'));
+                dots[targetIndex].classList.add('active');
+            }
+            
+            currentIndex = targetIndex;
+        };
+        
+        if (slides.length > 0) {
+            dotsNav.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('nav-dot');
+                dotsNav.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            dotsNav.children[0].classList.add('active');
+        }
+
+        let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0;
+        const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+
+        const dragStart = (event) => {
+            isDragging = true;
+            startPos = getPositionX(event);
+            const transformMatrix = window.getComputedStyle(track).getPropertyValue('transform');
+            prevTranslate = transformMatrix !== 'none' ? parseFloat(transformMatrix.split(',')[4]) : 0;
+            track.style.transition = 'none';
+        };
+
+        const dragging = (event) => {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                const move = currentPosition - startPos;
+                currentTranslate = prevTranslate + move;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+        };
+
+        const dragEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -75 && currentIndex < slides.length - 1) currentIndex++;
+            if (movedBy > 75 && currentIndex > 0) currentIndex--;
+
+            moveToSlide(currentIndex);
+        };
+        
+        const setupSlider = () => {
+            if (slides.length === 0) return;
+            slideWidth = slides[0].getBoundingClientRect().width;
+            moveToSlide(currentIndex);
+        };
+
+        testimonialSlider.addEventListener('mousedown', dragStart);
+        testimonialSlider.addEventListener('mouseup', dragEnd);
+        testimonialSlider.addEventListener('mouseleave', dragEnd);
+        testimonialSlider.addEventListener('mousemove', dragging);
+
+        testimonialSlider.addEventListener('touchstart', dragStart, { passive: true });
+        testimonialSlider.addEventListener('touchend', dragEnd);
+        testimonialSlider.addEventListener('touchmove', dragging, { passive: true });
+        
+        window.addEventListener('resize', setupSlider);
+        
+        setupSlider();
+    }
+});
