@@ -20,6 +20,11 @@ body {
     overflow-x: hidden;
 }
 
+/* KELAS BANTU UNTUK SCROLL LOCK SAAT MENU TERBUKA */
+.no-scroll {
+    overflow: hidden;
+}
+
 .container {
     max-width: 1140px;
     margin: 0 auto;
@@ -33,7 +38,6 @@ section {
     position: relative; 
 }
 
-/* KELAS BANTU UNTUK SCREEN READER */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -46,7 +50,6 @@ section {
     border: 0;
 }
 
-/* Background Dots and Shapes */
 .with-dots {
     background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0);
     background-size: 20px 20px;
@@ -96,7 +99,7 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .logo { display: flex; align-items: center; text-decoration: none; color: var(--dark-text); font-weight: 700; font-size: 1.2rem; }
 .logo img { height: 50px; margin-right: 12px; }
 .nav-links { list-style: none; display: flex; gap: 40px; margin: 0; padding: 0; font-weight: 500; }
-.nav-links a { text-decoration: none; color: var(--dark-text); transition: color 0.2s; }
+.nav-links a { text-decoration: none; color: var(--dark-text); transition: color 0.2s; font-size: 1rem; }
 .nav-links a:hover { color: var(--primary-red); }
 
 @media (min-width: 993px) {
@@ -126,25 +129,22 @@ header nav.container { display: flex; justify-content: space-between; align-item
     background: var(--dark-text);
     border-radius: 5px;
     left: 0;
-    transition: transform 350ms ease-out, opacity 350ms ease-out;
+    transition: transform 350ms ease-in-out;
 }
 
 .mobile-nav-toggle::before {
     top: 25%;
-    transform-origin: center;
 }
 
 .mobile-nav-toggle::after {
     bottom: 25%;
-    transform-origin: center;
 }
 
-/* Gaya saat menu terbuka (menjadi X) */
 .mobile-nav-toggle[aria-expanded="true"]::before {
-    transform: translateY(375%) rotate(45deg);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 .mobile-nav-toggle[aria-expanded="true"]::after {
-    transform: translateY(-375%) rotate(-45deg);
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* ================== HERO SECTION ================== */
@@ -459,9 +459,10 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         position: fixed;
         inset: 0 0 0 30%;
         flex-direction: column;
-        padding: min(20vh, 10rem) 2rem;
-        gap: 2rem;
-        background: hsl(0 0% 100% / 0.9);
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        background: hsl(0 0% 100% / 0.95);
         backdrop-filter: blur(1rem);
         transform: translateX(100%);
         transition: transform 350ms ease-out;
@@ -469,6 +470,9 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     }
     .nav-links[data-visible="true"] {
         transform: translateX(0%);
+    }
+    .nav-links a {
+        font-size: 1.5rem;
     }
 
     .mobile-nav-toggle {
@@ -481,30 +485,21 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
     
+    .hero-section {
+        padding-top: 40px;
+        padding-bottom: 60px;
+    }
     .hero-content {
-        gap: 40px;
+        grid-template-columns: 1fr;
+        gap: 20px;
         text-align: center;
     }
     .hero-text {
-        order: 2;
+        order: 1;
     }
     .hero-images {
-        order: 1;
-        height: 350px;
+        display: none;
     }
-    .hero-images img {
-        border-width: 5px;
-    }
-    .hero-red-bg {
-        width: 300px; height: 300px;
-        top: 50%; left: -150px;
-        transform: translateY(-50%);
-    }
-    .hero-images .img1 { width: 55%; height: 55%; top: 0; right: 0; left: auto; }
-    .hero-images .img2 { width: 45%; height: 45%; top: 40%; left: 0; }
-    .hero-images .img3 { display: none; }
-    .hero-images .img4 { width: 35%; height: 35%; bottom: 0; right: 20%; }
-    .hero-images .img5 { display: none; }
     
     .final-cta-section h2 { font-size: 2.2rem; }
     .rotating-text-container { font-size: 1.8rem; height: auto; min-height: 70px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }

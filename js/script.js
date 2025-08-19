@@ -5,19 +5,22 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- FUNGSI BARU: NAVIGASI MOBILE (HAMBURGER MENU) ---
+    // --- FUNGSI NAVIGASI MOBILE (HAMBURGER MENU) ---
     const nav = document.querySelector("#nav-links");
     const navToggle = document.querySelector(".mobile-nav-toggle");
+    const body = document.body;
 
     if (navToggle) {
         navToggle.addEventListener("click", () => {
             const visibility = nav.getAttribute("data-visible");
-            if (visibility === "false") {
+            if (visibility === "false" || visibility === null) {
                 nav.setAttribute("data-visible", true);
                 navToggle.setAttribute("aria-expanded", true);
+                body.classList.add("no-scroll"); // Kunci scroll
             } else {
                 nav.setAttribute("data-visible", false);
                 navToggle.setAttribute("aria-expanded", false);
+                body.classList.remove("no-scroll"); // Buka kunci scroll
             }
         });
     }
