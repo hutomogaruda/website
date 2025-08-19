@@ -1,6 +1,6 @@
 /**
- * File: D:/project/hutomo/js/script.js
- * Deskripsi: Skrip ini mengelola semua interaktivitas di website Hutomo Driving School.
+ * File: js/script.js
+ * Deskripsi: Skrip ini mengelola semua interaktivitas di website HKP Kemayoran.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector(".mobile-nav-toggle");
     const body = document.body;
 
-    if (navToggle) {
+    if (navToggle && nav) {
         navToggle.addEventListener("click", () => {
-            const visibility = nav.getAttribute("data-visible");
-            if (visibility === "false" || visibility === null) {
+            const isVisible = nav.getAttribute("data-visible") === "true";
+            
+            if (!isVisible) {
+                // Buka Menu
                 nav.setAttribute("data-visible", true);
                 navToggle.setAttribute("aria-expanded", true);
                 body.classList.add("no-scroll"); // Kunci scroll
             } else {
+                // Tutup Menu
                 nav.setAttribute("data-visible", false);
                 navToggle.setAttribute("aria-expanded", false);
                 body.classList.remove("no-scroll"); // Buka kunci scroll
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(el);
         });
     } else {
+        // Fallback untuk browser lama
         revealElements.forEach(el => el.classList.add('visible'));
     }
 
@@ -55,10 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (rotatingTextElement) {
         setInterval(() => {
             rotatingIndex = (rotatingIndex + 1) % rotatingTexts.length;
-            rotatingTextElement.classList.add('fade-out');
+            // Menambahkan efek fade-out sederhana (opsional, butuh CSS)
+            rotatingTextElement.style.opacity = '0';
             setTimeout(() => {
                 rotatingTextElement.textContent = rotatingTexts[rotatingIndex];
-                rotatingTextElement.classList.remove('fade-out');
+                rotatingTextElement.style.opacity = '1';
             }, 500);
         }, 2500);
     }
@@ -163,15 +168,3 @@ document.addEventListener('DOMContentLoaded', function() {
         setupSlider();
     }
 });
-
-// --- CSS TAMBAHAN UNTUK TEKS BERPUTAR ---
-const style = document.createElement('style');
-style.innerHTML = `
-    #rotating-text {
-        transition: opacity 0.5s ease-in-out;
-    }
-    #rotating-text.fade-out {
-        opacity: 0;
-    }
-`;
-document.head.appendChild(style);
