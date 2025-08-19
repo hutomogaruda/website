@@ -5,6 +5,23 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- FUNGSI BARU: NAVIGASI MOBILE (HAMBURGER MENU) ---
+    const nav = document.querySelector("#nav-links");
+    const navToggle = document.querySelector(".mobile-nav-toggle");
+
+    if (navToggle) {
+        navToggle.addEventListener("click", () => {
+            const visibility = nav.getAttribute("data-visible");
+            if (visibility === "false") {
+                nav.setAttribute("data-visible", true);
+                navToggle.setAttribute("aria-expanded", true);
+            } else {
+                nav.setAttribute("data-visible", false);
+                navToggle.setAttribute("aria-expanded", false);
+            }
+        });
+    }
+
     // --- FUNGSI 1: ANIMASI SAAT SCROLL ---
     const revealElements = document.querySelectorAll('.reveal');
     if (window.IntersectionObserver) {
@@ -56,16 +73,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- FUNGSI 4: SLIDER TESTIMONI INTERAKTIF (PERBAIKAN FINAL) ---
+    // --- FUNGSI 4: SLIDER TESTIMONI INTERAKTIF ---
     const testimonialSlider = document.querySelector('.testimonial-slider-viewport');
     if (testimonialSlider) {
         const track = testimonialSlider.querySelector('.testimonial-track');
         const slides = Array.from(track.children);
         const dotsNav = document.querySelector('.testimonial-navigation');
-        let slideWidth = slides[0].getBoundingClientRect().width;
+        let slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
         let currentIndex = 0;
 
-        // Fungsi utama untuk pindah slide
         const moveToSlide = (targetIndex) => {
             if (targetIndex < 0 || targetIndex >= slides.length) return;
             
@@ -73,34 +89,27 @@ document.addEventListener('DOMContentLoaded', function() {
             track.style.transition = 'transform 0.5s ease-out';
             track.style.transform = `translateX(-${amountToMove}px)`;
 
-            if (dots) {
-                dots.forEach(dot => dot.classList.remove('active'));
+            const dots = dotsNav.children;
+            if (dots.length > 0) {
+                Array.from(dots).forEach(dot => dot.classList.remove('active'));
                 dots[targetIndex].classList.add('active');
             }
             
             currentIndex = targetIndex;
         };
         
-        // Buat titik navigasi secara dinamis
-        dotsNav.innerHTML = '';
-        slides.forEach((_, index) => {
-            const dot = document.createElement('span');
-            dot.classList.add('nav-dot');
-            dotsNav.appendChild(dot);
-            dot.addEventListener('click', () => moveToSlide(index));
-        });
-
-        const dots = Array.from(dotsNav.children);
-        if (dots.length > 0) {
-            dots[0].classList.add('active');
+        if (slides.length > 0) {
+            dotsNav.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('nav-dot');
+                dotsNav.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            dotsNav.children[0].classList.add('active');
         }
 
-        // Logika Geser/Swipe
-        let isDragging = false,
-            startPos = 0,
-            currentTranslate = 0,
-            prevTranslate = 0;
-
+        let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0;
         const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
 
         const dragStart = (event) => {
@@ -125,22 +134,18 @@ document.addEventListener('DOMContentLoaded', function() {
             isDragging = false;
             const movedBy = currentTranslate - prevTranslate;
 
-            if (movedBy < -75 && currentIndex < slides.length - 1) {
-                currentIndex++;
-            }
-            if (movedBy > 75 && currentIndex > 0) {
-                currentIndex--;
-            }
+            if (movedBy < -75 && currentIndex < slides.length - 1) currentIndex++;
+            if (movedBy > 75 && currentIndex > 0) currentIndex--;
 
             moveToSlide(currentIndex);
         };
         
         const setupSlider = () => {
+            if (slides.length === 0) return;
             slideWidth = slides[0].getBoundingClientRect().width;
             moveToSlide(currentIndex);
         };
 
-        // Event Listeners
         testimonialSlider.addEventListener('mousedown', dragStart);
         testimonialSlider.addEventListener('mouseup', dragEnd);
         testimonialSlider.addEventListener('mouseleave', dragEnd);
