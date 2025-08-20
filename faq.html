@@ -10,6 +10,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Schema: FAQPage (Lengkap) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Apakah harga kursus sudah termasuk SIM A?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ya. Semua paket sudah termasuk pendampingan lengkap pembuatan SIM A – mulai dari pendaftaran, pengurusan jadwal, hingga pendampingan ujian di SATPAS. Waktu pembuatan SIM bisa ditentukan oleh siswa sendiri."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah jadwal belajar fleksibel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sangat fleksibel. Anda dapat memilih waktu belajar antara pukul 07.00–21.00 WIB, termasuk akhir pekan dan hari libur, tanpa biaya tambahan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah latihan langsung di jalan raya?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ya. Materi latihan langsung di jalan raya dan medan sebenarnya, termasuk tol 56 km, parkir gedung spiral, parkir paralel tanpa cone, dan mundur masuk garasi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bisa latihan menggunakan mobil sendiri?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bisa. Kami menyediakan pendampingan langsung dengan mobil pribadi Anda untuk membiasakan diri dengan kendaraan sendiri."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Apakah ada garansi jika hujan atau kendala teknis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jika ada kendala dari pihak kami, Anda akan mendapat 1 sesi gratis. Jika hujan, antar jemput gratis tanpa biaya tambahan."
+          }
+        },
+        {
+            "@type": "Question",
+            "name": "Berapa lama durasi per sesi latihan?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Setiap sesi latihan berlangsung selama 2 jam untuk memastikan pembelajaran yang efektif dan tidak melelahkan."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Apakah HKP menyediakan layanan antar-jemput?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ya, kami menyediakan layanan antar-jemput dengan biaya yang terjangkau untuk area Kemayoran, Sunter, Gunung Sahari, Ancol, Cempaka Putih, dan sekitarnya."
+            }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -18,7 +84,17 @@
                 <img src="assets/images/logo.jpg" alt="Logo HKP Kemayoran">
                 <span>HKP Kemayoran</span>
             </a>
-            <a href="index.html" class="btn btn-primary">← Kembali ke Beranda</a>
+            <ul class="nav-links" id="nav-links" data-visible="false">
+                <li><a href="index.html#why-us">Kenapa Kami</a></li>
+                <li><a href="index.html#steps">Proses</a></li>
+                <li><a href="index.html#testimonials">Testimoni</a></li>
+                <li><a href="packages.html">Paket & Harga</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li class="nav-cta"><a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20gratis." target="_blank" class="btn btn-primary">Konsultasi Gratis</a></li>
+            </ul>
+            <button class="mobile-nav-toggle" aria-controls="nav-links" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+            </button>
         </nav>
     </header>
 
@@ -26,75 +102,44 @@
         <section class="page-section">
             <div class="container">
                 <div class="text-center" style="margin-bottom: 60px;">
-                    <h1>FAQ – Pertanyaan yang Sering Diajukan tentang Kursus Stir Mobil HKP</h1>
-                    <p class="subtitle" style="max-width: 800px; margin: 20px auto 0;">
-                        Kami mengumpulkan pertanyaan yang paling sering diajukan calon siswa tentang kursus stir mobil, paket, jadwal, hingga pembuatan SIM A di HKP Driving School.
-                    </p>
+                    <h1>Frequently Asked Questions (FAQ)</h1>
+                    <p class="subtitle" style="max-width: 600px; margin: 15px auto 0;">Semua yang perlu Anda ketahui sebelum memulai kursus mengemudi di HKP Kemayoran.</p>
                 </div>
-
-                <h2 style="text-align: left; font-size: 2rem; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px;">A. Paket & Program Latihan</h2>
                 <div class="faq-accordion">
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apakah ada paket unlimited sampai bisa?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Ya. Paket Spesial Unlimited memungkinkan Anda latihan sepuasnya sampai percaya diri, tanpa biaya tambahan.</p></div>
+                    <!-- Pertanyaan dari landing page -->
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Apakah harga kursus sudah termasuk SIM A?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Ya. Semua paket sudah termasuk pendampingan lengkap pembuatan SIM A – mulai dari pendaftaran, pengurusan jadwal, hingga pendampingan ujian di SATPAS. Waktu pembuatan SIM bisa ditentukan oleh siswa sendiri.</p></div>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apakah bisa latihan pakai mobil sendiri?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Bisa, bahkan berkali-kali sesuai kebutuhan Anda.</p></div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Apakah jadwal belajar fleksibel?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Sangat fleksibel. Anda dapat memilih waktu belajar antara pukul 07.00–21.00 WIB, termasuk akhir pekan dan hari libur, tanpa biaya tambahan.</p></div>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apakah ada latihan di malam hari atau akhir pekan?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Ya, jadwal kami fleksibel dari pukul 07.00–21.00, termasuk akhir pekan & hari libur, dengan tarif flat (tanpa biaya tambahan).</p></div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Apakah latihan langsung di jalan raya?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Ya. Materi latihan langsung di jalan raya dan medan sebenarnya, termasuk tol 56 km, parkir gedung spiral, parkir paralel tanpa cone, dan mundur masuk garasi.</p></div>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apa saja materi yang diajarkan?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Mulai dari teknik dasar, parkir spiral di gedung, parkir kanan/kiri (paralel & seri), jalan tol, tanjakan, mundur, hingga manuver di medan sempit.</p></div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Bisa latihan menggunakan mobil sendiri?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Bisa. Kami menyediakan pendampingan langsung dengan mobil pribadi Anda untuk membiasakan diri dengan kendaraan sendiri.</p></div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Apakah ada garansi jika hujan atau kendala teknis?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Jika ada kendala dari pihak kami, Anda akan mendapat 1 sesi gratis. Jika hujan, antar jemput gratis tanpa biaya tambahan.</p></div>
+                    </div>
+                    <!-- Pertanyaan Tambahan -->
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Berapa lama durasi per sesi latihan?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Setiap sesi latihan berlangsung selama 2 jam untuk memastikan pembelajaran yang efektif dan tidak melelahkan.</p></div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question"><h4>Apakah HKP menyediakan layanan antar-jemput?</h4><span class="faq-icon">+</span></div>
+                        <div class="faq-answer"><p>Ya, kami menyediakan layanan antar-jemput dengan biaya yang terjangkau untuk area Kemayoran, Sunter, Gunung Sahari, Ancol, Cempaka Putih, dan sekitarnya.</p></div>
                     </div>
                 </div>
-
-                <h2 style="text-align: left; font-size: 2rem; margin-top: 60px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px;">B. SIM A & Proses Administrasi</h2>
-                <div class="faq-accordion">
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apakah pembuatan SIM A dibantu sepenuhnya?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Ya, semua paket kami sudah termasuk pendaftaran, penjadwalan, dan pendampingan penuh saat ujian di SATPAS.</p></div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question"><h4>Apakah bisa langsung membuat SIM di kota lain?</h4><span class="faq-icon">+</span></div>
-                        <div class="faq-answer"><p>Pembuatan SIM A berlaku secara nasional. Setelah SIM Anda jadi, perpanjangan SIM dapat dilakukan di kota manapun di seluruh Indonesia.</p></div>
-                    </div>
-                </div>
-                
-                <h2 style="text-align: left; font-size: 2rem; margin-top: 60px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px;">C. Pembayaran & Kebijakan</h2>
-                 <div class="faq-accordion">
-                     <div class="faq-item">
-                         <div class="faq-question"><h4>Apa saja metode pembayaran yang tersedia?</h4><span class="faq-icon">+</span></div>
-                         <div class="faq-answer"><p>Kami menerima transfer bank, QRIS, kartu kredit dengan cicilan 0% hingga 3 bulan (untuk bank tertentu), dan pembayaran tunai (cash).</p></div>
-                     </div>
-                     <div class="faq-item">
-                         <div class="faq-question"><h4>Apakah bisa membayar DP dulu?</h4><span class="faq-icon">+</span></div>
-                         <div class="faq-answer"><p>Bisa. Anda dapat membayar DP sebesar Rp 500.000 terlebih dahulu, kemudian menentukan pilihan paket setelah sesi pertemuan pertama.</p></div>
-                     </div>
-                     <div class="faq-item">
-                         <div class="faq-question"><h4>Bagaimana jika hujan atau ada kesalahan dari pihak HKP?</h4><span class="faq-icon">+</span></div>
-                         <div class="faq-answer"><p>Keamanan dan kenyamanan Anda adalah prioritas. Jika terjadi hujan lebat atau kendala dari pihak kami, kami akan menjadwalkan ulang sesi Anda atau memberikan sesi latihan gratis sebagai kompensasi.</p></div>
-                     </div>
-                 </div>
-
-                <h2 style="text-align: left; font-size: 2rem; margin-top: 60px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px;">D. Lain-lain</h2>
-                 <div class="faq-accordion">
-                     <div class="faq-item">
-                         <div class="faq-question"><h4>Apakah ada instruktur berbahasa Inggris?</h4><span class="faq-icon">+</span></div>
-                         <div class="faq-answer"><p>Ya, kami menyediakan instruktur berpengalaman yang fasih mengajar dalam bahasa Inggris untuk melayani siswa internasional.</p></div>
-                     </div>
-                     <div class="faq-item">
-                         <div class="faq-question"><h4>Apakah menerima siswa pemula yang belum pernah nyetir sama sekali?</h4><span class="faq-icon">+</span></div>
-                         <div class="faq-answer"><p>Tentu saja. Program kami dirancang khusus untuk semua tingkat kemampuan, mulai dari pemula yang belum pernah memegang setir hingga yang ingin melancarkan kembali kemampuannya.</p></div>
-                     </div>
-                 </div>
-
-                <div class="whatsapp-cta" style="margin-top: 80px;">
-                    <h3>💬 Masih ada pertanyaan?</h3>
-                    <a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20masih%20memiliki%20pertanyaan%20tentang%20kursus%20mengemudi%20HKP." target="_blank" class="btn btn-primary">👉 Klik di sini untuk chat Agen langsung dan booking jadwal latihan</a>
+                <div class="whatsapp-cta">
+                    <h3>Masih Punya Pertanyaan Lain?</h3>
+                    <a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20masih%20memiliki%20pertanyaan%20tentang%20kursus%20mengemudi%20HKP." target="_blank" class="btn btn-primary">👉 Klik di sini untuk chat Agen langsung</a>
                 </div>
             </div>
         </section>
@@ -107,10 +152,10 @@
                 <p>Kursus stir mobil dan les mengemudi profesional di Jakarta Pusat yang menawarkan paket latihan unlimited, jadwal fleksibel, dan pendampingan penuh pembuatan SIM A.</p>
             </div>
             <div class="footer-links">
-                <a href="index.html#about" class="footer-button">Tentang HKP</a>
+                <a href="about.html" class="footer-button">Tentang HKP</a>
                 <a href="faq.html" class="footer-button">FAQ</a>
                 <a href="packages.html" class="footer-button">Paket & Harga</a>
-                <a href="blog.html" class="footer-button">Blog</a>
+                <a href="blog-landing-page.html" class="footer-button">Blog</a>
                 <a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20kursus%20mengemudi%20HKP." target="_blank" class="footer-button">Kontak</a>
             </div>
         </div>

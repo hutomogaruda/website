@@ -10,6 +10,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Schema: Service untuk Paket & Harga -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "provider": {
+        "@type": "DrivingSchool",
+        "name": "HKP - Hutomo Kemayoran Perkasa Driving School",
+        "url": "https://www.hkpgaruda.com"
+      },
+      "serviceType": "Kursus Stir Mobil",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Paket Kursus HKP",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Paket Spesial Unlimited",
+            "description": "Latihan tanpa batas sampai bisa, bisa menggunakan mobil sendiri, jadwal fleksibel, termasuk pendampingan SIM A. Hubungi WhatsApp untuk detail harga."
+          },
+          {
+            "@type": "Offer",
+            "name": "Paket Manual (4-10x 2 jam)",
+            "description": "Kelas Private + SIM A, Parkir gedung + Tol 56 km. Hubungi WhatsApp untuk harga."
+          },
+          {
+            "@type": "Offer",
+            "name": "Paket Matic / Kombinasi (4-10x 2 jam)",
+            "description": "Kelas Private + SIM A, Parkir gedung + Tol 56 km. Hubungi WhatsApp untuk harga."
+          }
+        ]
+      }
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -18,73 +53,68 @@
                 <img src="assets/images/logo.jpg" alt="Logo HKP Kemayoran">
                 <span>HKP Kemayoran</span>
             </a>
-            <a href="index.html" class="btn btn-primary">← Kembali ke Beranda</a>
+            <ul class="nav-links" id="nav-links" data-visible="false">
+                <li><a href="index.html#why-us">Kenapa Kami</a></li>
+                <li><a href="index.html#steps">Proses</a></li>
+                <li><a href="index.html#testimonials">Testimoni</a></li>
+                <li><a href="packages.html">Paket & Harga</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li class="nav-cta"><a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20gratis." target="_blank" class="btn btn-primary">Konsultasi Gratis</a></li>
+            </ul>
+            <button class="mobile-nav-toggle" aria-controls="nav-links" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+            </button>
         </nav>
     </header>
 
     <main>
         <section class="page-section">
             <div class="container text-center">
-                <h1>Paket & Harga Kursus Stir Mobil di Kemayoran – HKP Driving School</h1>
-                <p class="subtitle" style="max-width: 800px; margin: 20px auto 10px;">
-                    HKP Driving School, berdiri sejak 1969 di Kemayoran, Jakarta Pusat, menawarkan berbagai pilihan paket kursus stir mobil manual, matic, maupun kombinasi.
-                </p>
-                <p class="subtitle" style="max-width: 800px; margin: 10px auto 10px;">
-                    Latihan private 1-on-1, jadwal fleksibel 07.00–21.00, pendampingan penuh pembuatan SIM A, dan pilihan latihan menggunakan mobil sendiri.
-                </p>
-                <p class="subtitle" style="max-width: 800px; margin: 10px auto 30px;">
-                    Melayani Kemayoran, Gunung Sahari, Sunter, Ancol, Jakarta Pusat, dan sekitarnya.
-                </p>
+                <h1>Paket & Harga Kursus</h1>
+                <p class="subtitle" style="max-width: 600px; margin: 15px auto 0;">Pilih paket yang paling sesuai dengan kebutuhan Anda. Semua harga sudah termasuk instruktur profesional dan pendampingan SIM A.</p>
             </div>
         </section>
-
-        <section class="page-section light-bg" style="padding-top: 60px;">
+        
+        <section class="page-section light-bg" style="padding-top: 0;">
             <div class="container">
-                <h2 class="text-center">Pilihan Paket Kursus Stir Mobil HKP</h2>
-                <p class="price-note">
-                    Catatan: Untuk informasi harga terbaru, silakan klik tombol WhatsApp di bawah.
-                </p>
-
+                <div class="price-note">
+                    <p><strong>Info:</strong> Harga dapat berubah sewaktu-waktu. Hubungi kami via WhatsApp untuk mendapatkan harga promo terbaru!</p>
+                </div>
                 <div class="packages-grid">
-                    <div class="package-card featured">
-                        <span class="recommended-badge">Paling Direkomendasi</span>
-                        <h3>Paket Spesial Unlimited</h3>
-                        <p>Latihan tanpa batas sampai Anda benar-benar bisa dan merasa aman di jalan.</p>
-                        <ul>
-                            <li>Latihan Tanpa Batas Sesi</li>
-                            <li>Jadwal Fleksibel (Pagi/Siang/Malam)</li>
-                            <li>Bisa Menggunakan Mobil Sendiri TANPA BATAS</li>
-                            <li>Termasuk Pendampingan Penuh SIM A</li>
-                        </ul>
-                    </div>
-
                     <div class="package-card">
                         <h3>Paket Manual</h3>
-                        <p>Kelas private 1-on-1 sudah termasuk pendampingan pembuatan SIM A.</p>
+                        <p>Cocok untuk Anda yang ingin menguasai dasar-dasar mobil manual secara komprehensif.</p>
                         <ul>
-                            <li><strong>Paket 1:</strong> 4 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 2:</strong> 5 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 3:</strong> 6 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 4:</strong> 7 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 5:</strong> 10 x 2 jam (Parkir gedung + 2x Tol 56 km)</li>
+                            <li>Kelas Private 1-on-1</li>
+                            <li>Pilihan Sesi (4-10x pertemuan @2 jam)</li>
+                            <li>Termasuk Latihan Tol & Parkir Gedung</li>
+                            <li>Pendampingan Penuh SIM A</li>
                         </ul>
                     </div>
-
+                    <div class="package-card featured">
+                        <div class="recommended-badge">Terlaris</div>
+                        <h3>Paket Spesial Unlimited</h3>
+                        <p>Pilihan terbaik untuk pemula. Latihan sepuasnya tanpa batas waktu hingga Anda benar-benar mahir dan percaya diri.</p>
+                        <ul>
+                            <li><strong>Latihan Tanpa Batas Sesi</strong></li>
+                            <li>Jadwal Super Fleksibel (Pagi-Malam)</li>
+                            <li>Bisa Latihan Pakai Mobil Sendiri</li>
+                            <li>Pendampingan Penuh SIM A</li>
+                        </ul>
+                    </div>
                     <div class="package-card">
                         <h3>Paket Matic / Kombinasi</h3>
-                        <p>Kelas private 1-on-1 sudah termasuk pendampingan pembuatan SIM A.</p>
+                        <p>Ideal untuk Anda yang fokus pada mobil matic atau ingin mencoba keduanya (manual & matic).</p>
                         <ul>
-                            <li><strong>Paket 6:</strong> 4 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 7:</strong> 5 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 8:</strong> 6 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 9:</strong> 7 x 2 jam (Parkir gedung + Tol 56 km)</li>
-                            <li><strong>Paket 10:</strong> 10 x 2 jam (Parkir gedung + 2x Tol 56 km)</li>
+                            <li>Kelas Private 1-on-1</li>
+                            <li>Pilihan Sesi (4-10x pertemuan @2 jam)</li>
+                            <li>Termasuk Latihan Tol & Parkir Gedung</li>
+                            <li>Pendampingan Penuh SIM A</li>
                         </ul>
                     </div>
                 </div>
-
                 <div class="whatsapp-cta">
-                    <h3>💬 Mau tahu harga terbaru & promo bulan ini?</h3>
+                    <h3>Dapatkan Harga Terbaru & Promo Bulan Ini</h3>
                     <a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20mau%20bertanya%20tentang%20harga%20paket%20kursus%20mengemudi." target="_blank" class="btn btn-primary">👉 Klik di sini untuk chat langsung via WhatsApp</a>
                 </div>
             </div>
@@ -98,10 +128,10 @@
                 <p>Kursus stir mobil dan les mengemudi profesional di Jakarta Pusat yang menawarkan paket latihan unlimited, jadwal fleksibel, dan pendampingan penuh pembuatan SIM A.</p>
             </div>
             <div class="footer-links">
-                <a href="index.html#about" class="footer-button">Tentang HKP</a>
+                <a href="about.html" class="footer-button">Tentang HKP</a>
                 <a href="faq.html" class="footer-button">FAQ</a>
                 <a href="packages.html" class="footer-button">Paket & Harga</a>
-                <a href="blog.html" class="footer-button">Blog</a>
+                <a href="blog-landing-page.html" class="footer-button">Blog</a>
                 <a href="https://wa.me/6285215513552?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20kursus%20mengemudi%20HKP." target="_blank" class="footer-button">Kontak</a>
             </div>
         </div>

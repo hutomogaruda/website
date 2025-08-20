@@ -15,15 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const isVisible = nav.getAttribute("data-visible") === "true";
             
             if (!isVisible) {
-                // Buka Menu
                 nav.setAttribute("data-visible", true);
                 navToggle.setAttribute("aria-expanded", true);
-                body.classList.add("no-scroll"); // Kunci scroll
+                body.classList.add("no-scroll");
             } else {
-                // Tutup Menu
                 nav.setAttribute("data-visible", false);
                 navToggle.setAttribute("aria-expanded", false);
-                body.classList.remove("no-scroll"); // Buka kunci scroll
+                body.classList.remove("no-scroll");
             }
         });
     }
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(el);
         });
     } else {
-        // Fallback untuk browser lama
         revealElements.forEach(el => el.classList.add('visible'));
     }
 
@@ -59,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (rotatingTextElement) {
         setInterval(() => {
             rotatingIndex = (rotatingIndex + 1) % rotatingTexts.length;
-            // Menambahkan efek fade-out sederhana (opsional, butuh CSS)
             rotatingTextElement.style.opacity = '0';
             setTimeout(() => {
                 rotatingTextElement.textContent = rotatingTexts[rotatingIndex];
