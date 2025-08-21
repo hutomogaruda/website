@@ -595,3 +595,127 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
 
     .whatsapp-cta h3 { font-size: 1.5rem; }
 }
+/* ================== STYLES FOR NEW PACKAGE PAGE V2 ================== */
+
+.packages-grid-v2 {
+    display: grid;
+    /* Membuat 3 kolom dengan lebar yang sama */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1140px; /* Disesuaikan dengan lebar container utama */
+    margin: 40px auto 0 auto;
+}
+
+.package-card-v2 {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.package-card-v2.featured-v2 {
+    border: 2px solid var(--primary-red);
+}
+
+.featured-badge-v2 {
+    position: absolute;
+    top: 18px;
+    right: -45px;
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 8px 40px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.package-card-v2 h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.package-card-v2 .package-title-featured {
+    color: var(--primary-blue);
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.package-description {
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 1.1rem;
+    flex-grow: 1; /* Membuat deskripsi mengisi ruang kosong */
+}
+
+.package-subtitle {
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: #333;
+}
+
+.package-features, .package-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.package-features li {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.package-features .checkmark {
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 12px;
+    line-height: 1;
+}
+
+.package-list li {
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+    color: #333;
+}
+
+.package-list li::before {
+    content: '🚗';
+    position: absolute;
+    left: -5px;
+    top: 2px;
+}
+
+/* Penyesuaian untuk layar sedang (Tablet) */
+@media (max-width: 992px) {
+    .packages-grid-v2 {
+        grid-template-columns: 1fr; /* Jadi 1 kolom */
+    }
+}
+
+/* Penyesuaian untuk layar kecil (Mobile) */
+@media (max-width: 768px) {
+    .package-card-v2 h3 {
+       font-size: 1.6rem;
+    }
+    .package-card-v2 .package-title-featured {
+        font-size: 1.8rem;
+    }
+    .featured-badge-v2 {
+        font-size: 0.8rem;
+        padding: 6px 35px;
+        top: 15px;
+        right: -48px;
+    }
+}
