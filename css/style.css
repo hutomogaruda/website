@@ -5,7 +5,7 @@
     --accent-yellow: #FFC940;
     --dark-text: #212529;
     --light-bg: #F8F9FA;
-    --road-color: rgba(253, 239, 239, 0.9); /* Sedikit lebih tebal agar terlihat jelas */
+    --road-color: rgba(253, 239, 239, 0.9);
     --white: #FFFFFF;
     --font-family: 'Poppins', sans-serif;
 }
@@ -19,11 +19,9 @@ html, body {
     position: relative; 
 }
 
-/* Kunci Perbaikan: Hapus overflow dari body dan main */
 body, main {
-    overflow-x: clip; /* Ganti dari hidden ke clip */
+    overflow-x: clip;
 }
-
 
 .no-scroll {
     overflow: hidden;
@@ -105,6 +103,15 @@ header nav.container { display: flex; justify-content: space-between; align-item
 .nav-links { list-style: none; display: flex; align-items: center; gap: 40px; margin: 0; padding: 0; font-weight: 500; }
 .nav-links a { text-decoration: none; color: var(--dark-text); transition: color 0.2s; font-size: 1rem; }
 .nav-links a:hover { color: var(--primary-red); }
+
+/* === PERBAIKAN TOMBOL KEMBALI DIMULAI DI SINI === */
+header nav.container > .btn.btn-primary {
+    padding: 8px 16px; /* Padding lebih kecil */
+    font-size: 0.9rem; /* Font lebih kecil */
+    font-weight: 600; /* Sedikit lebih tipis */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Bayangan lebih halus */
+}
+/* === PERBAIKAN SELESAI === */
 
 @media (min-width: 993px) {
     .nav-links {
@@ -498,13 +505,13 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
     .proof-item { justify-content: flex-start; text-align: left; }
     .features-grid { grid-template-columns: 1fr; }
     .about-text h2 { text-align: center; }
+    .steps-road-container { min-height: unset; }
+    .step-item { position: static; width: 100%; flex-direction: column; text-align: center; margin-bottom: 50px; }
+    .step-item.step-2, .step-item.step-3, .step-item.step-4 { flex-direction: column; text-align: center; }
     .footer-content { flex-direction: column; align-items: center; }
     .footer-info { text-align: center; }
     .footer-links { justify-content: center; }
     .shape { display: none; } 
-    .steps-road-container { min-height: unset; }
-    .step-item { position: static; width: 100%; flex-direction: column; text-align: center; margin-bottom: 50px; }
-    .step-item.step-2, .step-item.step-3, .step-item.step-4 { flex-direction: column; text-align: center; }
 }
 
 @media (max-width: 768px) {
