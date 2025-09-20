@@ -163,4 +163,239 @@ document.addEventListener('DOMContentLoaded', function() {
         
         setupSlider();
     }
+
+    // --- FUNGSI 5: AI CHAT WIDGET ---
+    const AI_WEBHOOK_URL = 'https://nerra.id/api/webhook/faeb4013-709b-451c-babb-eac5d8cc177d';
+    
+    // Create AI chat widget
+    function createAIChatWidget() {
+        const chatWidget = document.createElement('div');
+        chatWidget.id = 'ai-chat-widget';
+        chatWidget.innerHTML = `
+            <div class="ai-chat-toggle" id="ai-chat-toggle">
+                <span class="ai-icon">🤖</span>
+                <span class="ai-text">Tanya AI</span>
+            </div>
+            <div class="ai-chat-container" id="ai-chat-container">
+                <div class="ai-chat-header">
+                    <h4>AI Assistant HKP</h4>
+                    <button class="ai-chat-close" id="ai-chat-close">×</button>
+                </div>
+                <div class="ai-chat-messages" id="ai-chat-messages">
+                    <div class="ai-message">
+                        <div class="ai-avatar">🤖</div>
+                        <div class="ai-text-content">
+                            Halo! Saya AI Assistant HKP. Ada yang bisa saya bantu tentang kursus mengemudi?
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-chat-input-container">
+                    <input type="text" id="ai-chat-input" placeholder="Tulis pertanyaan Anda..." />
+                    <button id="ai-chat-send">Kirim</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(chatWidget);
+        
+        // Add event listeners
+        const toggle = document.getElementById('ai-chat-toggle');
+        const container = document.getElementById('ai-chat-container');
+        const closeBtn = document.getElementById('ai-chat-close');
+        const input = document.getElementById('ai-chat-input');
+        const sendBtn = document.getElementById('ai-chat-send');
+        const messages = document.getElementById('ai-chat-messages');
+        
+        let isOpen = false;
+        
+        toggle.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                container.classList.add('show');
+                input.focus();
+                // Scroll to bottom when chat opens
+                setTimeout(() => {
+                    messages.scrollTop = messages.scrollHeight;
+                }, 100);
+            } else {
+                container.classList.remove('show');
+            }
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            isOpen = false;
+            container.classList.remove('show');
+        });
+        
+        const sendMessage = async () => {
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            const typingId = addTypingIndicator();
+            
+             try {
+                 // Send to webhook
+                 const response = await fetch(AI_WEBHOOK_URL, {
+                     method: 'POST',
+                     headers: { 'Content-Type': 'application/json' },
+                     body: JSON.stringify({ message: message, metadata: { source: 'website' } })
+                 });
+                
+                 // Remove typing indicator
+                 removeTypingIndicator(typingId);
+                 
+                 if (response.ok) {
+                     const data = await response.json();
+                     // Check if response contains error
+                     if (data.status === 'error') {
+                         addMessage('Maaf, AI Agent sedang mengalami gangguan. Silakan hubungi kami langsung via WhatsApp untuk bantuan lebih lanjut.', 'ai');
+                     } else {
+                         // Add AI response
+                         addMessage(data.ai_response || data.message || 'Terima kasih atas pertanyaan Anda! Tim kami akan segera menghubungi Anda.', 'ai');
+                     }
+                 } else {
+                     addMessage('Maaf, terjadi kesalahan. Silakan hubungi kami langsung via WhatsApp.', 'ai');
+                 }
+            } catch (error) {
+                removeTypingIndicator(typingId);
+                addMessage('Maaf, terjadi kesalahan. Silakan hubungi kami langsung via WhatsApp.', 'ai');
+            }
+        };
+        
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${sender}-message`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="user-text-content">${text}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="ai-avatar">🤖</div>
+                    <div class="ai-text-content">${text}</div>
+                `;
+            }
+            
+            messages.appendChild(messageDiv);
+            // Scroll to bottom with slight delay to ensure DOM is updated
+            setTimeout(() => {
+                messages.scrollTop = messages.scrollHeight;
+            }, 10);
+        }
+        
+        function addTypingIndicator() {
+            const typingId = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.id = typingId;
+            typingDiv.className = 'ai-message typing';
+            typingDiv.innerHTML = `
+                <div class="ai-avatar">🤖</div>
+                <div class="ai-text-content">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            messages.appendChild(typingDiv);
+            // Scroll to bottom with slight delay to ensure DOM is updated
+            setTimeout(() => {
+                messages.scrollTop = messages.scrollHeight;
+            }, 10);
+            return typingId;
+        }
+        
+        function removeTypingIndicator(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.remove();
+            }
+        }
+    }
+    
+    // Initialize AI chat widget
+    createAIChatWidget();
+    
+    // --- FUNGSI 6: AI CHAT POPUP NOTIFICATION ---
+    function createAIPopupNotification() {
+        // Check if user has already seen the popup in this session
+        if (sessionStorage.getItem('ai-popup-shown')) {
+            return;
+        }
+        
+        // Show popup immediately when page loads
+        const popup = document.createElement('div');
+        popup.id = 'ai-popup-notification';
+        popup.innerHTML = `
+            <div class="ai-popup-content">
+                <div class="ai-popup-close" id="ai-popup-close">×</div>
+                <div class="ai-popup-icon">🤖</div>
+                <div class="ai-popup-text">
+                    <h4>Butuh Bantuan?</h4>
+                    <p>AI Assistant kami siap membantu menjawab pertanyaan seputar kursus mengemudi, paket, dan jadwal. Tanya langsung sekarang!</p>
+                </div>
+                <div class="ai-popup-arrow"></div>
+            </div>
+        `;
+        
+        document.body.appendChild(popup);
+        
+        // Add event listeners
+        const closeBtn = document.getElementById('ai-popup-close');
+        const popupElement = document.getElementById('ai-popup-notification');
+        
+        // Function to close popup
+        function closePopup() {
+            popupElement.classList.remove('show');
+            setTimeout(() => {
+                if (popupElement && popupElement.parentNode) {
+                    popupElement.remove();
+                }
+            }, 300);
+            sessionStorage.setItem('ai-popup-shown', 'true');
+        }
+        
+        // Close button event listener
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closePopup();
+        });
+        
+        // Also close when clicking outside the popup
+        popupElement.addEventListener('click', (e) => {
+            if (e.target === popupElement) {
+                closePopup();
+            }
+        });
+        
+        // Auto close after 10 seconds
+        setTimeout(() => {
+            if (popupElement && popupElement.parentNode) {
+                closePopup();
+            }
+        }, 10000);
+        
+        // Show popup with animation after a short delay to ensure DOM is ready
+        setTimeout(() => {
+            popupElement.classList.add('show');
+        }, 500);
+    }
+    
+    // Initialize popup notification
+    createAIPopupNotification();
 });
