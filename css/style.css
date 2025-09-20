@@ -530,9 +530,11 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         transition: transform 350ms ease-out;
         z-index: 9000;
         overflow-y: auto;
+        display: none; /* Hidden by default */
     }
     .nav-links[data-visible="true"] {
         transform: translateX(0%);
+        display: flex; /* Show when data-visible="true" */
     }
     .nav-links a {
         font-size: 1.5rem;
@@ -1050,6 +1052,12 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
         z-index: 9999 !important;
     }
     
+    /* Ensure AI chat widget stays visible when sidebar is open */
+    .nav-links[data-visible="true"] ~ #ai-chat-widget,
+    body:has(.nav-links[data-visible="true"]) #ai-chat-widget {
+        z-index: 10000 !important;
+    }
+    
     .ai-chat-toggle {
         padding: 10px 14px !important;
         font-size: 0.75rem !important;
@@ -1196,26 +1204,31 @@ footer { background-color: var(--dark-text); color: #aaa; padding: 60px 0; }
 /* Mobile responsive for popup */
 @media (max-width: 768px) {
     #ai-popup-notification {
-        bottom: 90px;
-        right: 15px;
-        left: 15px;
+        bottom: 80px;
+        right: 10px;
+        left: 10px;
         max-width: none;
+        z-index: 1001; /* Lower than AI chat widget */
     }
     
     .ai-popup-content {
-        padding: 18px;
+        padding: 16px;
+        border-radius: 12px;
     }
     
     .ai-popup-icon {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
     
     .ai-popup-text h4 {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 8px;
     }
     
     .ai-popup-text p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 0;
     }
     
     .ai-popup-arrow {

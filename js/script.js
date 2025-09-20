@@ -24,6 +24,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 body.classList.remove("no-scroll");
             }
         });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            const isVisible = nav.getAttribute("data-visible") === "true";
+            if (isVisible && !nav.contains(e.target) && !navToggle.contains(e.target)) {
+                nav.setAttribute("data-visible", false);
+                navToggle.setAttribute("aria-expanded", false);
+                body.classList.remove("no-scroll");
+            }
+        });
+        
+        // Ensure AI chat widget stays visible when sidebar is open
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-visible') {
+                    const aiWidget = document.getElementById('ai-chat-widget');
+                    if (aiWidget) {
+                        const isSidebarVisible = nav.getAttribute("data-visible") === "true";
+                        if (isSidebarVisible) {
+                            aiWidget.style.zIndex = '10000';
+                        } else {
+                            aiWidget.style.zIndex = '1002';
+                        }
+                    }
+                }
+            });
+        });
+        
+        observer.observe(nav, { attributes: true });
     }
 
     // --- FUNGSI 1: ANIMASI SAAT SCROLL ---
@@ -387,10 +416,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Check if mobile device
+        const isMobile = window.innerWidth <= 768;
+        
         // Show popup immediately when page loads
         const popup = document.createElement('div');
         popup.id = 'ai-popup-notification';
-        popup.innerHTML = `
+        
+        // Different content for mobile vs desktop
+        const popupContent = isMobile ? `
+            <div class="ai-popup-content">
+                <div class="ai-popup-close" id="ai-popup-close">×</div>
+                <div class="ai-popup-icon">🤖</div>
+                <div class="ai-popup-text">
+                    <h4>Butuh Bantuan?</h4>
+                    <p>AI Assistant siap membantu! Tanya langsung di pojok kanan bawah.</p>
+                </div>
+                <div class="ai-popup-arrow"></div>
+            </div>
+        ` : `
             <div class="ai-popup-content">
                 <div class="ai-popup-close" id="ai-popup-close">×</div>
                 <div class="ai-popup-icon">🤖</div>
@@ -401,6 +445,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="ai-popup-arrow"></div>
             </div>
         `;
+        
+        popup.innerHTML = popupContent;
         
         document.body.appendChild(popup);
         
@@ -443,6 +489,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show popup with animation after a short delay to ensure DOM is ready
         setTimeout(() => {
             popupElement.classList.add('show');
+            
+            // Auto-hide popup after 8 seconds on mobile for better UX
+            if (isMobile) {
+                setTimeout(() => {
+                    closePopup();
+                }, 8000);
+            }
         }, 500);
     }
     
