@@ -169,6 +169,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Create AI chat widget
     function createAIChatWidget() {
+        // Check if widget already exists
+        if (document.getElementById('ai-chat-widget')) {
+            return;
+        }
+        
         const chatWidget = document.createElement('div');
         chatWidget.id = 'ai-chat-widget';
         chatWidget.innerHTML = `
@@ -198,17 +203,35 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(chatWidget);
         
-        // Add event listeners
+        // Force visibility for mobile devices
+        setTimeout(() => {
+            const widget = document.getElementById('ai-chat-widget');
+            if (widget) {
+                widget.style.display = 'block';
+                widget.style.visibility = 'visible';
+                widget.style.opacity = '1';
+                widget.style.zIndex = '1002';
+            }
+        }, 100);
+        
+        // Add event listeners with mobile support
         const toggle = document.getElementById('ai-chat-toggle');
         const container = document.getElementById('ai-chat-container');
         const closeBtn = document.getElementById('ai-chat-close');
+        
+        // Ensure elements exist before adding listeners
+        if (!toggle || !container || !closeBtn) {
+            console.error('AI Chat Widget elements not found');
+            return;
+        }
         const input = document.getElementById('ai-chat-input');
         const sendBtn = document.getElementById('ai-chat-send');
         const messages = document.getElementById('ai-chat-messages');
         
         let isOpen = false;
         
-        toggle.addEventListener('click', () => {
+        // Add both click and touch events for better mobile support
+        const toggleChat = () => {
             isOpen = !isOpen;
             if (isOpen) {
                 container.classList.add('show');
@@ -220,9 +243,24 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 container.classList.remove('show');
             }
+        };
+        
+        toggle.addEventListener('click', toggleChat);
+        toggle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            toggleChat();
         });
         
-        closeBtn.addEventListener('click', () => {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isOpen = false;
+            container.classList.remove('show');
+        });
+        
+        closeBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             isOpen = false;
             container.classList.remove('show');
         });
@@ -268,6 +306,11 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         sendBtn.addEventListener('click', sendMessage);
+        sendBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
+        
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
@@ -327,8 +370,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initialize AI chat widget
-    createAIChatWidget();
+    // Initialize AI chat widget with delay to ensure DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', createAIChatWidget);
+    } else {
+        createAIChatWidget();
+    }
+    
+    // Also try to initialize after a short delay for mobile devices
+    setTimeout(createAIChatWidget, 500);
     
     // --- FUNGSI 6: AI CHAT POPUP NOTIFICATION ---
     function createAIPopupNotification() {
